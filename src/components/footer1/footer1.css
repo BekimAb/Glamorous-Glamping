@@ -1,0 +1,14 @@
+.foot{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: lightslategray;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+    margin-top: 50px;
+  }
