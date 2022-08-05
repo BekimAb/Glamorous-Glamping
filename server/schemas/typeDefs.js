@@ -3,31 +3,40 @@ const { gql } = require("apollo-server-express");
 
 // create our typeDefs
 const typeDefs = gql`
-type User {
+  type User {
     _id: ID
-    username: String
+    userName: String
     email: String
     firstName: String
     lastName: String
-    bookings: [Booking]
+    password: String
+    createdAt: String
+    updatedAt: String
+    reservations: [Reservations]
   }
 
-  type Booking {
+  type PropertyType {
     _id: ID
-    createdAt: String
-    property
-    user: [User]
-    property: [Property]
+    name: String
+    image: String
+    numberAvailable: Int
   }
 
   type Property {
     _id: ID
-    propertyType: String
-    availableDates: String
+    name: String
     image: String
-    quantity: 1
-    price: Float
-    bookings: [Booking]
+    propertyType: [PropertyType]
+    reservations: [Reservations]
+  }
+
+  type Reservations {
+    _id: ID
+    createdAt: String
+    user: [User]
+    property: [Property]
+    startDate: date
+    endDate: date
   }
 
   type Auth {
@@ -36,11 +45,40 @@ type User {
   }
 
   type Query {
-   
+    me: User
+    users: [User]
+    property: [Property]
+    propertyType: [PropertyType]
+    reservations: [Reservations]
   }
 
   type Mutation {
-    
+    login(email: String!, password: String!): Auth
+    addUser(
+      email: String!
+      password: String!
+      firstName: String!
+      lastName: String!
+    ): Auth
+    updateUser(
+      email: String!
+      password: String!
+      firstName: String!
+      lastName: String!
+    ): User
+    addPropertyType(
+      name: String!
+      image: String!
+      numberAvailable: Int
+    ): PropertyType
+    updatePropertyType(
+      name: String!
+      image: String!
+      numberAvailable: Int
+    ): PropertyType
+    addProperty(name: String!, image: String!): Property
+    updateProperty(name: String!, image: String!): Property
+    addReservations(user: String!, startDate: date, endDate: date): Reservations
   }
 `;
 
