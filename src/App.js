@@ -4,7 +4,9 @@ import {
     Route,
 } from "react-router-dom";
 import Home from "./pages/home/Home";
-import Camp from "./pages/camp/Camp";
+import Tent from "./pages/tent/Tent";
+import Cabin from "./pages/cabin/Cabin"
+import Rv from "./pages/rv/Rv"
 import List from "./pages/list/List";
 
 function App() {
@@ -12,8 +14,12 @@ function App() {
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Home/>}/>
-            <Route path="/camps" element={<List/>}/>
-            <Route path="/camps/:id" element={<Camp/>}/>
+            <Route path="/tents" element={<Tent/>}/>
+            <Route path="/tents/:id" element={<Tent/>}/>
+            <Route path="/cabins" element={<Cabin/>}/>
+            <Route path="/cabins/:id" element={<Cabin/>}/>
+            <Route path="/rvs" element={<Rv/>}/>
+            <Route path="/rvs/:id" element={<Rv/>}/>
         </Routes> 
         </BrowserRouter>
     );
