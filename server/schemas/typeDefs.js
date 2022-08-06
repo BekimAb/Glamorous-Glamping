@@ -65,6 +65,7 @@ const typeDefs = gql`
       password: String!
       firstName: String!
       lastName: String!
+      reservations: [Reservations]
     ): User
     addPropertyType(
       name: String!
