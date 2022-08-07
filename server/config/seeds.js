@@ -5,9 +5,10 @@ db.once("open", async () => {
   await PropertyType.deleteMany();
 
   const propertyTypes = await PropertyType.insertMany([
-    { name: "Glamorous" },
-    { name: "Basic" },
-    { name: "Dazzling" },
+    { name: "Cabin" },
+    { name: "Home" },
+    { name: "RV" },
+    { name: "Tent" },
   ]);
 
   console.log("PropertyTypes have been seeded!");
@@ -75,8 +76,8 @@ db.once("open", async () => {
 
   const properties = await Property.insertMany([
     {
-      name: "Big Tent",
-      image: "placeholder",
+      name: "Lake Tent",
+      image: "/images/laketent.jpg",
       description: "This is placeholder text",
       propertyPrice: "199.99",
       quantity: "4",
@@ -84,16 +85,16 @@ db.once("open", async () => {
       reservations: [reservations[0]._id],
     },
     {
-      name: "Bigger Tent",
-      image: "placeholder",
+      name: "Projector Tent",
+      image: "/images/projectortent.jpg",
       description: "This is placeholder text",
       propertyPrice: "249.99",
       quantity: "2",
       propertyType: propertyTypes[0]._id,
     },
     {
-      name: "Little Tent",
-      image: "placeholder",
+      name: "Tent",
+      image: "/images/tent.jpg",
       description: "This is placeholder text",
       propertyPrice: "99.99",
       quantity: "4",
@@ -101,7 +102,7 @@ db.once("open", async () => {
     },
     {
       name: "RV",
-      image: "placeholder",
+      image: "/images/rv.jpg",
       description: "This is placeholder text",
       propertyPrice: "299.99",
       quantity: "3",
