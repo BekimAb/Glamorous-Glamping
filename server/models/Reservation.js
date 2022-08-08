@@ -9,7 +9,6 @@ const reservationSchema = new Schema({
   },
   reservationStart: {
     type: Date,
-    default: Date.now,
   },
   reservationEnd: {
     type: Date,
