@@ -6,6 +6,7 @@ import { useState } from "react";
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 const Header = ({type}) => {
     const [openDate, setOpenDate] = useState(false)
@@ -36,16 +37,16 @@ const Header = ({type}) => {
             <div className={type === "list" ? "headerContainer listMode" : "headerContainer"}>
                 <div className="headerList">
                     <div className="headerListItem">
-                <FontAwesomeIcon icon={faCampground} />
-                <span>Tents</span>
+                    <Link to = "/tents" style={{color: 'white', textDecoration: 'none'}}><FontAwesomeIcon icon={faCampground} />
+                <span>Tents</span> </Link>
                 </div>
             <div className="headerListItem">
-                 <FontAwesomeIcon icon={faHouseChimney} />
-                <span>Cabins</span>
+            <Link to = "/cabins" style={{color: 'white', textDecoration: 'none'}}><FontAwesomeIcon icon={faHouseChimney} />
+                <span>Cabins</span> </Link>
             </div>
                 <div className="headerListItem">
-                 <FontAwesomeIcon icon={faCaravan} />
-                <span>RVs</span>
+                <Link to = "/rvs" style={{color: 'white', textDecoration: 'none'}}><FontAwesomeIcon icon={faCaravan} />
+                <span>RVs</span> </Link>
             </div>
         </div>
         { type !== "list" &&
