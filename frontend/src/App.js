@@ -5,6 +5,21 @@ import Cabin from "./pages/cabin/Cabin";
 import Rv from "./pages/rv/Rv";
 // import List from "./pages/list/List";
 
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
 function App() {
   return (
     <BrowserRouter>
