@@ -10,14 +10,14 @@ const Featured = () => {
             <div className='featuredItem'>
                 <Link to = "/tents"><img src={image} alt="tent" className='featuredImg' /> </Link>
                 <div className="featuredTitles">
-                    <h1>Tent</h1>
+                    <h1>Tents</h1>
                     <h3>The OG campsite</h3>
                 </div>
             </div>
             <div className='featuredItem'>
                 <Link to = "/cabins"><img src={image2} alt="cabin" className='featuredImg' /> </Link>
                 <div className="featuredTitles">
-                    <h1>Cabin</h1>
+                    <h1>Cabins</h1>
                     <h3>Camping refined</h3>
                 </div>
             </div><div className='featuredItem'>

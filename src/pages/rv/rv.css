@@ -11,3 +11,16 @@
     width: 1024px;
     font-style: 20px;
 }
+
+.featuredRv{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    position: relative;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 200px;
+    margin-bottom: 20px;
+}
