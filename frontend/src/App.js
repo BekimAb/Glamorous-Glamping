@@ -34,20 +34,6 @@ const client = new ApolloClient({
 
 function App() {
   return (
-<<<<<<< HEAD
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/tents" element={<Tent />} />
-        <Route path="/tents/:id" element={<Tent />} />
-        <Route path="/cabins" element={<Cabin />} />
-        <Route path="/cabins/:id" element={<Cabin />} />
-        <Route path="/rvs" element={<Rv />} />
-        <Route path="/rvs/:id" element={<Rv />} />
-        <Route path="/list" element={<List />} />
-      </Routes>
-    </BrowserRouter>
-=======
     <ApolloProvider client={client}>
       <BrowserRouter>
         <Routes>
@@ -61,7 +47,6 @@ function App() {
         </Routes>
       </BrowserRouter>
     </ApolloProvider>
->>>>>>> 3690ab36ec27e45e7adc4dba6b49a6c56c16da13
   );
 }
 
