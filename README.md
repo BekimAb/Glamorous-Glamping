@@ -17,3 +17,7 @@ Builds the frontend client.
 ### `npm start`
 
 Should be run after an `npm run build` to launch the server and serve the built frontend client.
+
+### `npm run seed`
+
+This prepopulates the database with seed data.
