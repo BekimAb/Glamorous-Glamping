@@ -69,6 +69,17 @@ const typeDefs = gql`
       reservationStart: String!
       reservationEnd: String!
     ): Reservation
+    updateReservation(
+      propertyId: ID!
+      reservationStart: String!
+      reservationEnd: String!
+    ): Reservation
+
+    removeReservation(
+      propertyId: ID!
+      reservationStart: String!
+      reservationEnd: String!
+    ): Reservation
   }
 `;
 
