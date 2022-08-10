@@ -6,6 +6,19 @@ export const QUERY_ME = gql`
       firstName
       lastName
       email
+    }
+    reservations {
+      _id
+      reservationStart
+      reservationEnd
+      property {
+        _id
+        name
+        image
+        description
+        propertyType {
+          name
+        }
       }
     }
   }
@@ -22,6 +35,11 @@ export const QUERY_ALL_PROPERTY = gql`
         reservationStart
         reservationEnd
       }
+      propertyType {
+        name
+      }
+      price
+      quantity
     }
   }
 `;
