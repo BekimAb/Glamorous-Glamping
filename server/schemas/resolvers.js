@@ -83,6 +83,34 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
+    updateReservation: async (parent, args, context) => {
+      if (context.user) {
+        const updateReservation = await Reservation.create(args);
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $push: { reservations: args.reservation_id } },
+          { new: true }
+        );
+
+        return updateReservation;
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
+    removeReservation: async (parent, args, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedReservations: args.reservation_id } },
+          { new: true, runValidators: true, useFindAndModify: false }
+        );
+
+        return updateReservation;
+      }
+
+      throw new AuthenticationError("You need to be logged in!");
+    },
   },
 };
 

@@ -2,7 +2,6 @@
   "name": "booking",
   "version": "0.1.0",
   "private": true,
-<<<<<<< HEAD
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
@@ -13,7 +12,6 @@
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
     "apollo-server-express": "^3.10.0",
-    "bootstrap": "^5.2.0",
     "date-fns": "^2.29.1",
     "graphql": "^16.5.0",
     "nodemon": "^2.0.19",
@@ -22,26 +20,30 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "react-select": "^5.4.0",
     "web-vitals": "^2.1.4"
   },
-=======
-  "main": "server/server.js",
->>>>>>> 3690ab36ec27e45e7adc4dba6b49a6c56c16da13
   "scripts": {
-    "start": "node server/server.js",
-    "develop": "concurrently \"cd server && npm run watch\" \"cd frontend && npm start\"",
-    "install": "cd server && npm i && cd ../frontend && npm i",
-    "seed": "cd server && npm run seed",
-    "build": "cd frontend && npm run build"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^5.1.0"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "engines": {
-    "node": "16.x"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
