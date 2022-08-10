@@ -17,12 +17,10 @@ const reservationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  property: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Property",
-    },
-  ],
+  property: {
+    type: Schema.Types.ObjectId,
+    ref: "Property",
+  },
 });
 
 const Reservation = mongoose.model("Reservation", reservationSchema);

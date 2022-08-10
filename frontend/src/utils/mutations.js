@@ -1,10 +1,11 @@
 import { gql } from "@apollo/client";
 export const LOGIN_USER = gql`
-  mutation loginUser($email: String!, $password: String!) {
+  mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
       user {
         _id
+        email
         firstName
         lastName
       }
@@ -13,11 +14,22 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_USER = gql`
-  mutation addUser($username: String!, $email: String!, $password: String!) {
-    addUser(username: $username, email: $email, password: $password) {
+  mutation addUser(
+    $email: String!
+    $password: String!
+    $firstName: String!
+    $lastName: String!
+  ) {
+    addUser(
+      email: $email
+      password: $password
+      firstName: $firstName
+      lastName: $lastName
+    ) {
       token
       user {
         _id
+        email
         firstName
         lastName
       }
@@ -26,9 +38,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_RESERVATION = gql`
-  mutation addreservation(
+  mutation AddReservation(
     $propertyId: ID!
-    $user: String!
     $reservationStart: String!
     $reservationEnd: String!
   ) {
@@ -38,17 +49,16 @@ export const ADD_RESERVATION = gql`
       reservationEnd: $reservationEnd
     ) {
       _id
-      username
-      email
-      bookCount
-      savedBooks {
-        bookId
-        authors
-        description
-        title
-        image
-        link
-      }
+      reservationStart
+      reservationEnd
+    }
+  }
+`;
+
+export const REMOVE_RESERVATION = gql`
+  mutation RemoveReservation($reservationId: ID!) {
+    removeReservation(reservationId: $reservationId) {
+      _id
     }
   }
 `;
