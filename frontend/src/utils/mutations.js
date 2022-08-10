@@ -62,3 +62,24 @@ export const REMOVE_RESERVATION = gql`
     }
   }
 `;
+
+export const UPDATE_RESERVATION = gql`
+  mutation UpdateReservation(
+    $reservationId: ID!
+    $reservationStart: String!
+    $reservationEnd: String!
+  ) {
+    updateReservation(
+      reservationId: $reservationId
+      reservationStart: $reservationStart
+      reservationEnd: $reservationEnd
+    ) {
+      reservationEnd
+      reservationStart
+      _id
+      property {
+        _id
+      }
+    }
+  }
+`;

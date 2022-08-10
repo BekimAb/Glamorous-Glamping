@@ -81,12 +81,10 @@ const resolvers = {
           property: args.propertyId,
           user: context.user._id,
         });
-        console.log(
-          await User.findOneAndUpdate(
-            { _id: context.user._id },
-            { $push: { reservations: newReservation } },
-            { new: true }
-          )
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $push: { reservations: newReservation } },
+          { new: true }
         );
         await Property.findOneAndUpdate(
           { _id: args.propertyId },
@@ -100,14 +98,23 @@ const resolvers = {
     },
     updateReservation: async (parent, args, context) => {
       if (context.user) {
-        const updateReservation = await Reservation.create(args);
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $push: { reservations: args.reservation_id } },
-          { new: true }
+        const existingReservation = await Reservation.findById(
+          args.reservationId
         );
-
-        return updateReservation;
+        if (existingReservation.user.equals(context.user._id)) {
+          return await Reservation.findOneAndUpdate(
+            { _id: args.reservationId },
+            {
+              $set: {
+                reservationEnd: args.reservationEnd,
+                reservationStart: args.reservationStart,
+              },
+            },
+            { new: true }
+          );
+        } else {
+          throw new ForbiddenError("You do not own this reservation!");
+        }
       }
 
       throw new AuthenticationError("You need to be logged in!");
@@ -118,8 +125,6 @@ const resolvers = {
         const existingReservation = await Reservation.findById(
           args.reservationId
         );
-        console.log(existingReservation);
-        console.log(context.user);
         if (existingReservation.user.equals(context.user._id)) {
           await User.findOneAndUpdate(
             { _id: context.user._id },
