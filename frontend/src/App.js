@@ -11,7 +11,7 @@ import Home from "./pages/home/Home";
 import Tent from "./pages/tent/Tent";
 import Cabin from "./pages/cabin/Cabin";
 import Rv from "./pages/rv/Rv";
-// import List from "./pages/list/List";
+import List from "./pages/list/List";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
