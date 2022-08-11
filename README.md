@@ -1,23 +1,23 @@
-## Available Scripts
+## MERN SPA Project
 
-In the project directory, you can run:
+## Description
 
-### `npm run develop`
+In this app we had to make an interactive MERN project using react for the front end with a combination of MONGODB and GraphQl for the backend.
 
-Runs the frontend app and backend server in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Built With
 
-The page will reload when you make changes to the frontend doe, the server will restart when you make changes to the server code.\
-You may also see any lint errors in the console.
+- HTML
+- CSS
+- React.js
+- MongoDB
+- GraphQl
 
-### `npm run build`
+## Application Deployed
 
-Builds the frontend client.
+https://glamorous-glamping.herokuapp.com/rvs
 
-### `npm start`
+## Screenshot
 
-Should be run after an `npm run build` to launch the server and serve the built frontend client.
+![](./frontend/src/images/glampingscreenshot.png)
 
-### `npm run seed`
-
-This prepopulates the database with seed data.
+### Created by Bekim, Chika, Matt, Robert, and Trevor
