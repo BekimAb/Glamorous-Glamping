@@ -1,4 +1,7 @@
-const { AuthenticationError } = require("apollo-server-express");
+const {
+  AuthenticationError,
+  ForbiddenError,
+} = require("apollo-server-express");
 const { User, Property, Reservation, PropertyType } = require("../models");
 const { signToken } = require("../utils/auth");
 
@@ -32,17 +35,18 @@ const resolvers = {
         .populate("propertyType")
         .populate("reservations");
     },
-    reservations: async (parent, { _id }) => {
-      if (_id) {
-        const reservationData = await Reservations.findOne({
-          _id: parent.reservations._id,
+    reservations: async (parent, { _id }, context) => {
+      if (context.user) {
+        return await Reservation.find({
+          user: context.user._id,
         })
-          .select("user")
           .populate("reservedDate")
           .populate("property")
-          .populate("startdate")
-          .populate("endDate");
+          .populate("reservationStart")
+          .populate("reservationEnd");
       }
+
+      throw new AuthenticationError("Not logged in");
     },
   },
 
@@ -72,10 +76,19 @@ const resolvers = {
 
     addReservation: async (parent, args, context) => {
       if (context.user) {
-        const newReservation = await Reservation.create(args);
-        const updatedUser = await User.findOneAndUpdate(
+        const newReservation = await Reservation.create({
+          ...args,
+          property: args.propertyId,
+          user: context.user._id,
+        });
+        await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { reservations: newReservation } }
+          { $push: { reservations: newReservation } },
+          { new: true }
+        );
+        await Property.findOneAndUpdate(
+          { _id: args.propertyId },
+          { $push: { reservations: newReservation } }
         );
 
         return newReservation;
@@ -85,14 +98,23 @@ const resolvers = {
     },
     updateReservation: async (parent, args, context) => {
       if (context.user) {
-        const updateReservation = await Reservation.create(args);
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $push: { reservations: args.reservation_id } },
-          { new: true }
+        const existingReservation = await Reservation.findById(
+          args.reservationId
         );
-
-        return updateReservation;
+        if (existingReservation.user.equals(context.user._id)) {
+          return await Reservation.findOneAndUpdate(
+            { _id: args.reservationId },
+            {
+              $set: {
+                reservationEnd: args.reservationEnd,
+                reservationStart: args.reservationStart,
+              },
+            },
+            { new: true }
+          );
+        } else {
+          throw new ForbiddenError("You do not own this reservation!");
+        }
       }
 
       throw new AuthenticationError("You need to be logged in!");
@@ -100,13 +122,26 @@ const resolvers = {
 
     removeReservation: async (parent, args, context) => {
       if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { savedReservations: args.reservation_id } },
-          { new: true, runValidators: true, useFindAndModify: false }
+        const existingReservation = await Reservation.findById(
+          args.reservationId
         );
+        if (existingReservation.user.equals(context.user._id)) {
+          await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $pull: { reservations: existingReservation._id } },
+            { runValidators: true, useFindAndModify: false }
+          );
+          await Property.findOneAndUpdate(
+            { _id: existingReservation.property },
+            { $pull: { reservations: existingReservation._id } },
+            { runValidators: true, useFindAndModify: false }
+          );
+          await existingReservation.delete();
+        } else {
+          throw new ForbiddenError("You do not own this reservation!");
+        }
 
-        return updateReservation;
+        return existingReservation;
       }
 
       throw new AuthenticationError("You need to be logged in!");

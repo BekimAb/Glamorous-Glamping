@@ -9,15 +9,11 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     password: String
-    createdAt: String
-    updatedAt: String
   }
 
   type PropertyType {
     _id: ID
     name: String
-    image: String
-    numberAvailable: Int
   }
 
   type Property {
@@ -25,22 +21,25 @@ const typeDefs = gql`
     name: String
     image: String
     description: String
+    price: Float
+    quantity: Int
+    propertyType: PropertyType
     reservations: [Reservation]
   }
 
   type Reservation {
     _id: ID
     reservedDate: String
-    user: [User]
-    property: [Property]
+    user: User
+    property: Property
     reservationStart: String
     reservationEnd: String
   }
 
   type Order {
     _id: ID
-    propery: [Property]
-    reservations: [Reservation]
+    propery: Property
+    reservations: Reservation
   }
 
   type Auth {
@@ -70,16 +69,11 @@ const typeDefs = gql`
       reservationEnd: String!
     ): Reservation
     updateReservation(
-      propertyId: ID!
+      reservationId: ID!
       reservationStart: String!
       reservationEnd: String!
     ): Reservation
-
-    removeReservation(
-      propertyId: ID!
-      reservationStart: String!
-      reservationEnd: String!
-    ): Reservation
+    removeReservation(reservationId: ID!): Reservation
   }
 `;
 
